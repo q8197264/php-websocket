@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body onload="init()">
+DOCUMENT
+<button type="button" onclick="send()">send</button>
+</body>
+</html>
+
+<script>
+    var host = "ws://127.0.0.1:8080/echo";
+    var ws;
+
+    function init() {
+        try {
+            ws = new WebSocket(host);
+            ws.onopen = function() {
+                console.log("连接状态"+ws.readyState, ws);
+            };
+
+            ws.onmessage = function(evt) {
+                console.log("append message:"+evt.data);
+            };
+
+            ws.onclose = function (evt) {
+                console.log('close:'+this.readyState);
+            };
+
+            ws.onerror = function (evt) {
+                console.log('error:'+this.readyState);
+            };
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function send() {
+        ws.send("I am client:我是人人人人人人  人人人人人s 有：从人人人人人人从人人人人人人人人人有 朋有d126" +
+                "我是人人人人人人  人人人人人s 有：从人人人人人人从人人人人人人人人人有 朋有人  人人人人人s 有：从人人人人人人");
+    }
+
+</script>
